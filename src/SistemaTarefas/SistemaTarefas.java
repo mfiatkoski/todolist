@@ -14,7 +14,6 @@ import java.util.Scanner;
 public class SistemaTarefas {
     public static void main(String[] args) {
         Scanner teclado = new Scanner(System.in);
-        // Vetor para guardar no máximo 10 tarefas
         String[] tarefas = new String[10];
         int quantidade = 0;
         int opcao = 0;
