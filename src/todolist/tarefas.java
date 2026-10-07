@@ -8,13 +8,17 @@ package todolist;
  *
  * @author Aluno
  */
-class model {
+class tarefas {
 
-    static void addRow(Object[] object) {
+    static int indexOf(String tarefaSelecionda) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
-    static void setRowCount(int i) {
+    static Object get(int indiceTarefaSelecionada) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    static void set(int indiceTarefaSelecionada, String string) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

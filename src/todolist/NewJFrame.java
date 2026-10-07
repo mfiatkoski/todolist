@@ -7,6 +7,12 @@ package todolist;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+
+    private String CONCLUIDA;
+
+    private void filtrarTabela() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
 /**
  *
  * @author Aluno
@@ -181,6 +187,7 @@ private void preencherTabela(){
     ArrayList<String> listaTarefas;
     
     if (jComboBoxFiltroStatus.getSelectedIndex() >0){
+        ArrayList<String> tarefasFiltradas = null;
         listaTarefas = tarefasFiltradas;
     }else{
         listaTarefas = tarefas;
