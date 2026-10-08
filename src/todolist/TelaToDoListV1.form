@@ -226,7 +226,7 @@
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" attributes="0">
-                              <Component id="jTextFielConcluidas" min="-2" pref="70" max="-2" attributes="0"/>
+                              <Component id="jTextFieldConcluidas" min="-2" pref="70" max="-2" attributes="0"/>
                               <Component id="jTextFieldNaoConcluidas" min="-2" pref="70" max="-2" attributes="0"/>
                           </Group>
                       </Group>
@@ -246,7 +246,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jTextFielConcluidas" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jTextFieldConcluidas" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -282,7 +282,7 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextFieldTotalActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JTextField" name="jTextFielConcluidas">
+        <Component class="javax.swing.JTextField" name="jTextFieldConcluidas">
           <Properties>
             <Property name="editable" type="boolean" value="false"/>
           </Properties>

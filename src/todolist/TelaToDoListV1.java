@@ -4,6 +4,9 @@
  */
 package todolist;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -38,7 +41,14 @@ public class TelaToDoListV1 extends javax.swing.JFrame {
         model.setRowCount(0);
         
         setTitle("Lista De Tarefas V2");
+    
+       carregarTarefas();
+       preencherTabela();
+       atualizarEstatisticas();
+    
+    
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -64,7 +74,7 @@ public class TelaToDoListV1 extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jTextFieldTotal = new javax.swing.JTextField();
-        jTextFielConcluidas = new javax.swing.JTextField();
+        jTextFieldConcluidas = new javax.swing.JTextField();
         jTextFieldNaoConcluidas = new javax.swing.JTextField();
 
         javax.swing.GroupLayout panel1Layout = new javax.swing.GroupLayout(panel1);
@@ -136,7 +146,7 @@ public class TelaToDoListV1 extends javax.swing.JFrame {
         jTextFieldTotal.setEditable(false);
         jTextFieldTotal.addActionListener(this::jTextFieldTotalActionPerformed);
 
-        jTextFielConcluidas.setEditable(false);
+        jTextFieldConcluidas.setEditable(false);
 
         jTextFieldNaoConcluidas.setEditable(false);
         jTextFieldNaoConcluidas.addActionListener(this::jTextFieldNaoConcluidasActionPerformed);
@@ -158,7 +168,7 @@ public class TelaToDoListV1 extends javax.swing.JFrame {
                             .addComponent(jLabel3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jTextFielConcluidas, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextFieldConcluidas, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jTextFieldNaoConcluidas, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -172,7 +182,7 @@ public class TelaToDoListV1 extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextFielConcluidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFieldConcluidas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -241,6 +251,8 @@ public class TelaToDoListV1 extends javax.swing.JFrame {
         DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         tarefas.add(jTextFieldDescricaoTarefa.getText() + ";" + NAO_CONCLUIDA + ";" + dataAtual.format(formato));
         
+        salvarTarefa();
+        
         preencherTabela();
         atualizarEstatisticas();
         jTextFieldDescricaoTarefa.setText("");
@@ -248,6 +260,8 @@ public class TelaToDoListV1 extends javax.swing.JFrame {
 
     private void jButtonConcluirTarefaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonConcluirTarefaActionPerformed
         int linhaSelecionada = jTableTarefas.getSelectedRow();
+        
+        
         
         if (linhaSelecionada < 0){
             JOptionPane.showMessageDialog(rootPane, "Nenhuma tarefa foi selecionada!");
@@ -261,6 +275,9 @@ public class TelaToDoListV1 extends javax.swing.JFrame {
         String[] dados = tarefas.get(indiceTarefaSelecionada).split(";");
         
         tarefas.set(indiceTarefaSelecionada, dados[0] + ";" + CONCLUIDA + ";" + dados[2]);
+        
+        salvarTarefa();
+        atualizarEstatisticas();
         
         filtrarTabela();
         
@@ -386,6 +403,10 @@ public class TelaToDoListV1 extends javax.swing.JFrame {
     }
     private void atualizarEstatisticas(){
         jTextFieldTotal.setText(Integer.toString(tarefas.size()));
+        
+           
+        jTextFieldConcluidas.setText(String.valueOf(retornarTotalConcluidas()));
+        jTextFieldNaoConcluidas.setText(String.valueOf(retornarTotalNaoConcluidas()));
     }
       private int retornarTotalConcluidas(){
           int quantidadeConcluida = 0;
@@ -411,6 +432,35 @@ public class TelaToDoListV1 extends javax.swing.JFrame {
               }
           }
           return quantidadeNaoConcluida;
+      }
+      
+      private void salvarTarefa(){
+          try{
+                FileWriter arquivo = new FileWriter("tarefas.txt");
+                
+                for (String tarefa : tarefas) {
+                    arquivo.write(tarefa + "\n");
+                }
+                
+                arquivo.close();
+                  }catch(Exception e){
+                      JOptionPane.showMessageDialog(null,"Erro ao salvar as tarefas!");
+                          
+        }
+      }
+      private void carregarTarefas(){
+          try{
+              BufferedReader arquivo = new BufferedReader(new FileReader("tarefas.txt"));
+              String tarefa;
+              
+              while ((tarefa = arquivo.readLine()) != null){
+                  tarefas.add(tarefa);
+                  
+                  arquivo.close();
+              }
+          }catch(Exception e){
+              
+          }
       }
     /**
      * @param args the command line arguments
@@ -449,7 +499,7 @@ public class TelaToDoListV1 extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTableTarefas;
-    private javax.swing.JTextField jTextFielConcluidas;
+    private javax.swing.JTextField jTextFieldConcluidas;
     private javax.swing.JTextField jTextFieldDescricaoTarefa;
     private javax.swing.JTextField jTextFieldNaoConcluidas;
     private javax.swing.JTextField jTextFieldTotal;
