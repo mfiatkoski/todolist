@@ -310,7 +310,7 @@ public class TelaToDoListV1 extends javax.swing.JFrame {
             
             preencherTabela();
         }
-        
+        salvarTarefa();
         filtrarTabela();
         
         preencherTabela();
